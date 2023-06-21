@@ -41,8 +41,33 @@
   }
 </style>
 
-<button></button>
+<button>Click</button>
 <script>
+  const divs = document.querySelectorAll('div');
+  const button = document.querySelector('button');
+
+  function logText(e){
+    // e.stopPropagation();
+    console.log(this.classList.value);
+  }
+
+  divs.forEach(div => div.addEventListener('click', logText, {
+    // capture: true
+    once: true
+    /*capture means that it works from the parent in, whereas bubbling is from the child out;
+    if capture is set to true, clicking box 3 logs (one, two, three) because it starts from the parent; 
+    by default capture is false and clicking box 3 logs (three, two, one) because the event is bubbling out from child; 
+    stopPropagation() stops bubbling event, so if you click 3 it only logs three (unless capture is true, then it only logs one!);
+    Once will listen for a click once and will then unbind itself from event listener;
+    Once can be useful on store checkout buttons where you don't want someone trying to checkout/pay twice */
+  }));
+
+  button.addEventListener('click', () => {
+    console.log("Howdy!");
+  }, {
+    once: true
+  })
+
 
 </script>
 </body>
